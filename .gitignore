@@ -1,0 +1,12 @@
+# Ignore C++ build artifacts
+backend/build/
+*.exe
+*.obj
+*.o
+*.pdb
+
+# Ignore system/IDE files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerfectlyImperfect | Minimalist Fitness</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <button class="logo-btn" onclick="showPage('hero')">PERFECTLYIMPERFECT</button>
+        <nav id="guest-nav">
+            <a href="#" onclick="showPage('hero')">Home</a>
+            <a href="#" onclick="showPage('auth-login')">Login</a>
+            <a href="#" onclick="showPage('auth-register')" style="font-weight:700; color:var(--text-main);">Join</a>
+        </nav>
+        <nav id="user-nav" class="hidden">
+            <a href="#" onclick="showPage('dashboard')">Stats</a>
+            <a href="#" onclick="showPage('coaches')">Coaches</a>
+            <a href="#" onclick="showPage('diet')">Nutrition</a>
+            <a href="#" onclick="showPage('breathing')">Breathe</a>
+            <a href="#" onclick="showPage('sleep')">Sleep</a>
+            <a href="#" onclick="showPage('membership')">Membership</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Existing sections... -->
+
+        <!-- Sleep Section -->
+        <section id="sleep" class="hidden">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Sleep Science</h2>
+
+            <div class="grid">
+                <!-- Readiness Checker -->
+                <div class="glass-card">
+                    <h3>Readiness Checker</h3>
+                    <div id="sleep-quiz" style="margin-top: 1.5rem;">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; display:block; margin-bottom:0.5rem;">Screen time in last
+                                hour? (mins)</label>
+                            <input type="number" id="quiz-screen" value="30"
+                                style="width:100%; padding:0.8rem; border:1px solid var(--border-color); border-radius:4px;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; display:block; margin-bottom:0.5rem;">Caffeine after 4
+                                PM?</label>
+                            <select id="quiz-caffeine"
+                                style="width:100%; padding:0.8rem; border:1px solid var(--border-color); border-radius:4px;">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="font-size: 0.85rem; display:block; margin-bottom:0.5rem;">Stress Level
+                                (1-10)?</label>
+                            <input type="range" id="quiz-stress" min="1" max="10" value="5" style="width:100%;">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="checkSleepReadiness()">Analyze
+                            Readiness</button>
+                    </div>
+
+                    <div id="readiness-result" class="hidden"
+                        style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-color); border-radius: 8px;">
+                        <div class="stat-tag">Readiness Score</div>
+                        <div class="stat-val" id="score-val">--</div>
+                        <p id="advice-text" style="font-size: 0.9rem; margin: 1rem 0;"></p>
+                        <div id="routine-list" style="font-size: 0.85rem;"></div>
+                    </div>
+                </div>
+
+                <!-- Cycle Meter -->
+                <div class="glass-card">
+                    <h3>Cycle Meter</h3>
+                    <p style="font-size: 0.9rem; margin: 1rem 0;">Based on 90-minute neural cycles calculated by C++.
+                    </p>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="font-size: 0.85rem; display:block; margin-bottom:0.5rem;">Wake up time?</label>
+                        <input type="time" id="wake-time" value="07:00"
+                            style="width:100%; padding:0.8rem; border:1px solid var(--border-color); border-radius:4px;">
+                    </div>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="calculateSleepCycles()">Calculate
+                        Bedtimes</button>
+
+                    <div id="cycles-result" class="hidden" style="margin-top: 2rem;">
+                        <p style="font-size: 0.85rem; margin-bottom: 1rem;">Suggested bedtimes for optimal cycles:</p>
+                        <div id="bedtimes-list" style="display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Hero -->
+        <section id="hero" class="hero">
+            <h1>Embrace the Journey. <span>Stay Imperfect.</span></h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto;">A minimalist approach to fitness. We focus
+                on discipline, breath, and sustainable nutrition. No bots, just better habits.</p>
+            <div style="margin-top: 3rem; display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn btn-primary" onclick="showPage('auth-register')">Begin Transformation</button>
+                <button class="btn btn-outline" onclick="showPage('auth-login')">Continue Journey</button>
+            </div>
+        </section>
+
+        <!-- Auth -->
+        <section id="auth-login" class="hidden">
+            <div style="max-width: 400px; margin: 4rem auto;" class="glass-card">
+                <h2>Welcome Back</h2>
+                <form id="login-form" style="margin-top: 2rem;">
+                    <div style="margin-bottom: 1.25rem;">
+                        <input type="text" id="login-user" required placeholder="Username"
+                            style="width:100%; padding:1rem; border:1px solid var(--border-color); border-radius:4px;">
+                    </div>
+                    <div style="margin-bottom: 2rem;">
+                        <input type="password" id="login-pass" required placeholder="Password"
+                            style="width:100%; padding:1rem; border:1px solid var(--border-color); border-radius:4px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="auth-register" class="hidden">
+            <div style="max-width: 400px; margin: 4rem auto;" class="glass-card" id="reg-card">
+                <h2>New Start</h2>
+                <form id="register-form" style="margin-top: 2rem;">
+                    <div style="margin-bottom: 1rem;">
+                        <input type="text" id="reg-user" required placeholder="Username"
+                            style="width:100%; padding:1rem; border:1px solid var(--border-color); border-radius:4px;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <input type="email" id="reg-email" required placeholder="Email Address"
+                            style="width:100%; padding:1rem; border:1px solid var(--border-color); border-radius:4px;">
+                    </div>
+                    <div style="margin-bottom: 2rem;">
+                        <input type="password" id="reg-pass" required placeholder="Password"
+                            style="width:100%; padding:1rem; border:1px solid var(--border-color); border-radius:4px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                </form>
+            </div>
+
+            <!-- Success Box -->
+            <div id="reg-success" class="hidden" style="max-width: 400px; margin: 4rem auto; text-align: center;"
+                class="glass-card">
+                <div
+                    style="padding: 2rem; border-radius: 12px; border: 1px solid var(--accent-dark); background: var(--bg-color);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">✨</div>
+                    <h2 style="color: var(--accent-dark);">Welcome!</h2>
+                    <p style="margin: 1.5rem 0; font-weight: 500;">Your registration is complete.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Join us now to start
+                        your journey.</p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="showPage('auth-login')">Proceed to
+                        Login</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="hidden">
+            <div class="stats-header">
+                <h2>Personal Dashboard</h2>
+                <div class="logo-btn" id="dash-membership">BASIC</div>
+            </div>
+
+            <div class="grid">
+                <div class="glass-card">
+                    <div class="stat-tag">Heart Rate</div>
+                    <div class="stat-val">72 <span style="font-size:0.9rem; color:var(--text-muted);">BPM</span></div>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">Average Resting: 68 BPM</p>
+                </div>
+                <div class="glass-card">
+                    <div class="stat-tag">Daily Streak</div>
+                    <div class="stat-val">12 <span style="font-size:0.9rem; color:var(--text-muted);">DAYS</span></div>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">Goal: 15 Days</p>
+                </div>
+                <div class="glass-card">
+                    <div class="stat-tag">Workload</div>
+                    <div class="stat-val">Optimal</div>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">Recovery Score: 92%</p>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-top:2.5rem;">
+                <h3>Physique Metrics</h3>
+                <div style="margin-top:2rem;">
+                    <div class="stat-tag">Current Lean Mass vs Average</div>
+                    <div class="graph-container">
+                        <div class="graph-bar" style="width: 65%;"></div>
+                    </div>
+                    <p style="font-size:0.85rem;">You are at 65% of your target peak physique. <b>Recommendation:</b>
+                        Focus on slight caloric surplus this week.</p>
+                </div>
+                <div style="margin-top:1.5rem;">
+                    <div class="stat-tag">Activity Level</div>
+                    <div class="graph-container">
+                        <div class="graph-bar" style="width: 85%;"></div>
+                    </div>
+                    <p style="font-size:0.85rem;">High activity detected. Ensure 8+ hours of sleep for recovery.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coaches -->
+        <section id="coaches" class="hidden">
+            <h2 style="text-align: center;">Elite Coaching Team</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Real professionals, real results. Connect directly with
+                our experts.</p>
+            <div class="grid" id="coaches-list">
+                <!-- JS Load -->
+            </div>
+        </section>
+
+        <!-- Diet -->
+        <section id="diet" class="hidden">
+            <h2>Nutrition Protocols</h2>
+            <div style="display: flex; gap: 1rem; margin: 2rem 0;">
+                <button class="btn btn-outline" onclick="loadDiet('ectomorph')">Ectomorph</button>
+                <button class="btn btn-outline" onclick="loadDiet('mesomorph')">Mesomorph</button>
+                <button class="btn btn-outline" onclick="loadDiet('endomorph')">Endomorph</button>
+            </div>
+            <div id="diet-display" class="glass-card hidden">
+                <img id="diet-img" src="" class="diet-img">
+                <h3 id="diet-title" style="margin-bottom:1rem;"></h3>
+                <div id="diet-content"></div>
+            </div>
+        </section>
+
+        <!-- Breathing -->
+        <section id="breathing" class="hidden">
+            <div class="breathing-container">
+                <h2>Breath Control</h2>
+                <p>Follow the dot. Inhale as it expands, exhale as it shrinks.</p>
+                <div class="breath-circle" id="breath-box">
+                    <div class="breath-dot" id="breath-dot"></div>
+                    <div class="breath-label" id="breath-label">Inhale</div>
+                </div>
+                <button class="btn btn-primary" onclick="toggleBreathing()" id="breath-btn">Start Session</button>
+            </div>
+        </section>
+
+        <!-- Membership -->
+        <section id="membership" class="hidden">
+            <h2 style="text-align: center; margin-bottom: 3rem;">Subscription Tiers</h2>
+            <div class="grid">
+                <!-- Basic -->
+                <div class="glass-card">
+                    <h3 style="color:var(--accent-dark);">BASIC</h3>
+                    <p style="font-size: 1.5rem; color: var(--text-main); font-weight: 700; margin: 1rem 0;">FREE</p>
+                    <ul style="list-style: none; margin-bottom: 2rem; font-size: 0.9rem;">
+                        <li style="margin-bottom: 0.8rem;">✓ Standard Nutrition Plans</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Breathing Tools</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Basic Stats Tracking</li>
+                        <li style="margin-bottom: 0.8rem; color: var(--text-muted); font-style: italic;"><b>Level 1
+                                Care:</b> Automated habit tracking and system support.</li>
+                    </ul>
+                    <button class="btn btn-outline" style="width: 100%;" disabled>Current Plan</button>
+                </div>
+
+                <!-- Premium -->
+                <div class="glass-card">
+                    <h3 style="color:var(--accent-dark);">PREMIUM</h3>
+                    <p style="font-size: 1.5rem; color: var(--text-main); font-weight: 700; margin: 1rem 0;">
+                        ₹1,000<span>/mo</span></p>
+                    <ul style="list-style: none; margin-bottom: 2rem; font-size: 0.9rem;">
+                        <li style="margin-bottom: 0.8rem;">✓ Everything in Basic</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Advanced Bio-Analytic Stats</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Unlock Specialist Coaches</li>
+                        <li style="margin-bottom: 0.8rem; color: var(--accent-light);"><b>Level 2 Care:</b> Direct Q&A
+                            access to our community of coaches for routine verification.</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;"
+                        onclick="confirmPayment('Premium', '1000')">Choose Premium</button>
+                </div>
+
+                <!-- Premium Plus -->
+                <div class="glass-card" style="border: 2px solid var(--accent-dark);">
+                    <div
+                        style="background: var(--accent-dark); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; font-weight: 800;">
+                        MOST POPULAR</div>
+                    <h3 style="color:var(--accent-dark);">PREMIUM PLUS</h3>
+                    <p style="font-size: 1.5rem; color: var(--text-main); font-weight: 700; margin: 1rem 0;">
+                        ₹2,000<span>/mo</span></p>
+                    <ul style="list-style: none; margin-bottom: 2rem; font-size: 0.9rem;">
+                        <li style="margin-bottom: 0.8rem;">✓ Everything in Premium</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Weekly Diet Adjustments</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Priority Response Time</li>
+                        <li style="margin-bottom: 0.8rem; color: var(--accent-light);"><b>Level 3 Care:</b> Bi-weekly
+                            personal hygiene and stress management consults with our recovery staff.</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;"
+                        onclick="confirmPayment('Premium Plus', '2000')">Get Premium Plus</button>
+                </div>
+
+                <!-- Elite -->
+                <div class="glass-card">
+                    <h3 style="color:var(--accent-dark);">ELITE</h3>
+                    <p style="font-size: 1.5rem; color: var(--text-main); font-weight: 700; margin: 1rem 0;">
+                        ₹4,000<span>/mo</span></p>
+                    <ul style="list-style: none; margin-bottom: 2rem; font-size: 0.9rem;">
+                        <li style="margin-bottom: 0.8rem;">✓ Unlimited Expert Consultations</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Custom Supplement Guides</li>
+                        <li style="margin-bottom: 0.8rem;">✓ Advanced Hormone Optimization</li>
+                        <li style="margin-bottom: 0.8rem; color: var(--accent-light);"><b>Elite Care:</b> 24/7 dedicated
+                            concierge coach for real-time form correction and emotional support.</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="confirmPayment('Elite', '4000')">Join
+                        the Elite</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment (WhatsApp Bridge) -->
+        <section id="payment" class="hidden">
+            <div style="max-width: 500px; margin: 4rem auto; text-align: center;" class="glass-card">
+                <h2>Approve Upgrade</h2>
+                <p style="margin: 1.5rem 0;">Confirm the <b><span id="p-name">Elite</span> Package</b> for <b>₹<span
+                            id="p-price">4000</span></b></p>
+                <div style="padding: 1.5rem; background: var(--bg-color); border-radius: 8px; margin-bottom: 2rem;">
+                    <p style="color: var(--text-main); font-weight: 600;">Secure via WhatsApp Bridge</p>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem; line-height: 1.4;">Clicking confirm will send your
+                        selection to our admin. We will then provide you with the payment link and activate your "Excess
+                        Care" features immediately.</p>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="processWhatsAppPayment()">Confirm & Notify
+                    Admin</button>
+                <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;"
+                    onclick="showPage('membership')">Nevermind</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
