@@ -1,0 +1,21 @@
+{
+    "name": "PerfectlyImperfect Cloud Env",
+    "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu-22.04",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools"
+            ]
+        }
+    },
+    "forwardPorts": [18080],
+    "portsAttributes": {
+        "18080": {
+            "label": "API Backend",
+            "onAutoForward": "openBrowser",
+            "visibility": "public"
+        }
+    },
+    "postCreateCommand": "cd backend && mkdir -p build && cd build && cmake .. && cmake --build ."
+}
