@@ -34,6 +34,7 @@ struct CORSMiddleware {
 void sendRegistrationEmail(std::string toEmail, std::string username) {
   std::cout << "\n[GREETING SYSTEM] User registered: " << username << std::endl;
 
+#ifdef _WIN32
   // Directly trigger a Windows Native Notification (Toast)
   // This bypasses the need for SMTP passwords but gives the "Direct Mail" feel.
   std::string toastCmd =
@@ -60,6 +61,10 @@ void sendRegistrationEmail(std::string toEmail, std::string username) {
   std::cout
       << "[GREETING SYSTEM] Native Greeting Sent to Windows Action Center."
       << std::endl;
+#else
+  std::cout << "[GREETING SYSTEM] Welcome Notification logged for: " << username
+            << " (Native Toast only available on Windows)" << std::endl;
+#endif
 }
 
 int main() {
@@ -316,7 +321,7 @@ int main() {
               bh += 24;
             }
 
-            char buffer[10];
+            char buffer[16];
             sprintf(buffer, "%02d:%02d", bh, bm);
             bedtimes.push_back(std::string(buffer));
           }

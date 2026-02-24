@@ -38,5 +38,10 @@ add_executable(fitness_server main.cpp)
 # Asio is header-only, so we just need the include path and system libraries on Windows
 target_include_directories(fitness_server PRIVATE ${asio_SOURCE_DIR}/asio/include)
 
+# Standard Libraries
+target_link_libraries(fitness_server PRIVATE Crow::Crow nlohmann_json::nlohmann_json)
+
 # On Windows, Asio needs ws2_32 and mswsock for networking
-target_link_libraries(fitness_server PRIVATE Crow::Crow nlohmann_json::nlohmann_json ws2_32 mswsock)
+if(WIN32)
+    target_link_libraries(fitness_server PRIVATE ws2_32 mswsock)
+endif()
