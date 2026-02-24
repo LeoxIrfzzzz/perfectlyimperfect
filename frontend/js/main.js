@@ -1,9 +1,15 @@
-// Smart API Discovery: Automatically detects if running locally or in GitHub Codespaces
-const API_BASE = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') 
-    ? 'http://127.0.0.1:18080/api' 
-    : `https://${window.location.hostname.replace('content', '18080')}/api`;
+// Enhanced Smart API Discovery: Robust detection for Local vs GitHub Codespaces
+const getApiBase = () => {
+    const host = window.location.hostname;
+    if (host === '127.0.0.1' || host === 'localhost') return 'http://127.0.0.1:18080/api';
 
-console.log("Connecting to PerfectlyImperfect Backend at:", API_BASE);
+    // GitHub Codespaces pattern: replaces '-[port]' with '-18080'
+    const cloudApi = `https://${host.replace(/-\d+(?=\.app\.github\.dev|(?:\.preview)?\.app\.github\.dev)/, '-18080')}/api`;
+    return cloudApi;
+};
+
+const API_BASE = getApiBase();
+console.log("Connected to Backend at:", API_BASE);
 let currentUser = null;
 
 // Page Navigation
