@@ -1,4 +1,9 @@
-const API_BASE = 'http://127.0.0.1:18080/api';
+// Smart API Discovery: Automatically detects if running locally or in GitHub Codespaces
+const API_BASE = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') 
+    ? 'http://127.0.0.1:18080/api' 
+    : `https://${window.location.hostname.replace('content', '18080')}/api`;
+
+console.log("Connecting to PerfectlyImperfect Backend at:", API_BASE);
 let currentUser = null;
 
 // Page Navigation
